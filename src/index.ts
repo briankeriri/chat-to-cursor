@@ -5,9 +5,88 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { ElevenLabsClient, play } from "@elevenlabs/elevenlabs-js";
 import { getEffectiveConfig } from "./config.js";
-import { writeFileSync } from "fs";
+import { writeFileSync, existsSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+
+// Cursor Agent MCP launches often omit desktop env vars.
+// Linux: without XDG_RUNTIME_DIR, ffplay can't reach PipeWire/Pulse and may
+// exit 0 with no sound. Do not invent DISPLAY — ffplay -nodisp does not need
+// it, and a guessed :0 can make libpulse attach the wrong X11 session.
+// macOS/Windows: ensure common ffmpeg/ffplay install dirs are on PATH.
+if (process.platform === "linux" && !process.env.XDG_RUNTIME_DIR) {
+  const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
+  const runtimeDir = uid !== undefined ? `/run/user/${uid}` : undefined;
+  if (runtimeDir && existsSync(runtimeDir)) {
+    process.env.XDG_RUNTIME_DIR = runtimeDir;
+  } else {
+    console.error(
+      `[TTS] XDG_RUNTIME_DIR unset and ${runtimeDir ?? "/run/user/<uid>"} missing; ffplay will likely be silent`
+    );
+  }
+}
+
+if (process.platform === "darwin") {
+  const brewBins = ["/opt/homebrew/bin", "/usr/local/bin"];
+  const current = process.env.PATH ?? "/usr/bin:/bin:/usr/sbin:/sbin";
+  const parts = new Set(current.split(":").filter(Boolean));
+  const extra = brewBins.filter((dir) => existsSync(dir) && !parts.has(dir));
+  if (extra.length > 0) {
+    process.env.PATH = `${extra.join(":")}:${current}`;
+  }
+}
+
+if (process.platform === "win32") {
+  const home = process.env.USERPROFILE ?? "";
+  const localAppData =
+    process.env.LOCALAPPDATA ?? (home ? join(home, "AppData", "Local") : "");
+  const programData = process.env.ProgramData ?? "C:\\ProgramData";
+  const programFiles = process.env.ProgramFiles ?? "C:\\Program Files";
+  const chocoRoot = process.env.ChocolateyInstall ?? join(programData, "chocolatey");
+  const scoopRoot = process.env.SCOOP ?? (home ? join(home, "scoop") : "");
+  const systemRoot = process.env.SystemRoot ?? process.env.WINDIR ?? "C:\\Windows";
+  const ffmpegBins: string[] = [
+    localAppData && join(localAppData, "Microsoft", "WinGet", "Links"),
+    join(programFiles, "WinGet", "Links"),
+    scoopRoot && join(scoopRoot, "shims"),
+    join(chocoRoot, "bin"),
+    "C:\\ffmpeg\\bin",
+    join(programFiles, "ffmpeg", "bin"),
+    join(systemRoot, "System32"),
+  ].filter((dir): dir is string => Boolean(dir));
+
+  const pkgRoot = localAppData
+    ? join(localAppData, "Microsoft", "WinGet", "Packages")
+    : "";
+  if (pkgRoot && existsSync(pkgRoot)) {
+    try {
+      for (const name of readdirSync(pkgRoot)) {
+        if (!/ffmpeg/i.test(name)) continue;
+        const pkg = join(pkgRoot, name);
+        for (const inner of readdirSync(pkg)) {
+          const bin = join(pkg, inner, "bin");
+          if (existsSync(join(bin, "ffplay.exe"))) ffmpegBins.push(bin);
+        }
+      }
+    } catch {
+      // Ignore unreadable WinGet package dirs.
+    }
+  }
+
+  const current = process.env.PATH ?? "";
+  const parts = new Set(
+    current
+      .split(";")
+      .filter(Boolean)
+      .map((p) => p.toLowerCase())
+  );
+  const extra = ffmpegBins.filter(
+    (dir) => existsSync(dir) && !parts.has(dir.toLowerCase())
+  );
+  if (extra.length > 0) {
+    process.env.PATH = `${extra.join(";")}${current ? `;${current}` : ""}`;
+  }
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
