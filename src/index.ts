@@ -96,7 +96,7 @@ const config = getEffectiveConfig();
 
 // Create server instance
 const server = new McpServer({
-  name: "cursor-tts",
+  name: "chat-to-cursor",
   version: "1.0.0",
 });
 

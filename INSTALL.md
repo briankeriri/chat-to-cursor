@@ -11,7 +11,7 @@ This guide is for the [briankeriri/chat-to-cursor](https://github.com/briankerir
 ## Quick Install (via npm)
 
 ```bash
-npm install -g talktocursor
+npm install -g chat-to-cursor
 ```
 
 Then add to your Cursor MCP config (`~/.cursor/mcp.json`):
@@ -21,7 +21,7 @@ Then add to your Cursor MCP config (`~/.cursor/mcp.json`):
   "mcpServers": {
     "tts": {
       "command": "npx",
-      "args": ["-y", "talktocursor"]
+      "args": ["-y", "chat-to-cursor"]
     }
   }
 }
@@ -108,7 +108,7 @@ Open **http://localhost:3847** in your browser, then:
 >   "mcpServers": {
 >     "tts": {
 >       "command": "npx",
->       "args": ["-y", "talktocursor"],
+>       "args": ["-y", "chat-to-cursor"],
 >       "env": {
 >         "ELEVENLABS_API_KEY": "your-api-key-here"
 >       }
