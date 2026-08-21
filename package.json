@@ -33,9 +33,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/briankeriri/talk-to-cursor"
+    "url": "https://github.com/briankeriri/chat-to-cursor"
   },
-  "homepage": "https://github.com/briankeriri/talk-to-cursor",
+  "homepage": "https://github.com/briankeriri/chat-to-cursor",
   "files": [
     "build/",
     "public/",

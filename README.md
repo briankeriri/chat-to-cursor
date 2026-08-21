@@ -1,4 +1,4 @@
-# TalkToCursor
+# ChatToCursor
 
 A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates, completions, and responses aloud using ElevenLabs TTS, with cross-platform Cursor Agent playback fixes.
 
@@ -6,7 +6,7 @@ A hands-free voice interface for Cursor AI. Your coding assistant speaks progres
 
 This repository is a **fork** of the original [TalkToCursor](https://github.com/MindSyncTech/talk-to-cursor) project by [Mike Sheehan](https://github.com/MindSyncTech) ([talktocursor.com](https://talktocursor.com), [npm](https://www.npmjs.com/package/talktocursor)).
 
-It is maintained independently under [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor). Upstream remains available as the `upstream` git remote for reference.
+It is maintained independently under [briankeriri/chat-to-cursor](https://github.com/briankeriri/chat-to-cursor). Upstream remains available as the `upstream` git remote for reference.
 
 ## Features
 
@@ -30,8 +30,8 @@ It is maintained independently under [briankeriri/talk-to-cursor](https://github
 ### 1. Clone or download this repository
 
 ```bash
-git clone https://github.com/briankeriri/talk-to-cursor.git
-cd talk-to-cursor
+git clone https://github.com/briankeriri/chat-to-cursor.git
+cd chat-to-cursor
 ```
 
 Or download and extract the ZIP.
@@ -57,17 +57,17 @@ Edit (or create) `~/.cursor/mcp.json`:
   "mcpServers": {
     "tts": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/chat-to-cursor/build/index.js"]
     }
   }
 }
 ```
 
-**Important:** Replace `/ABSOLUTE/PATH/TO/talk-to-cursor` with the actual full path to where you cloned/downloaded this project.
+**Important:** Replace `/ABSOLUTE/PATH/TO/chat-to-cursor` with the actual full path to where you cloned/downloaded this project.
 
 For example:
-- macOS/Linux: `/Users/yourname/talk-to-cursor/build/index.js`
-- Windows: `C:\\Users\\yourname\\talk-to-cursor\\build\\index.js`
+- macOS/Linux: `/Users/yourname/chat-to-cursor/build/index.js`
+- Windows: `C:\\Users\\yourname\\chat-to-cursor\\build\\index.js`
 
 ### 5. Get your ElevenLabs API key
 
@@ -194,7 +194,7 @@ The script monitors the text field and automatically presses Enter when dictatio
 
 ## Links
 
-- **This fork:** [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor)
+- **This fork:** [briankeriri/chat-to-cursor](https://github.com/briankeriri/chat-to-cursor)
 - **Original project:** [MindSyncTech/talk-to-cursor](https://github.com/MindSyncTech/talk-to-cursor) · [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
 
 ## License

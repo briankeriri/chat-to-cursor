@@ -1,6 +1,6 @@
 # Quick Setup Guide
 
-For the [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor) fork of [TalkToCursor](https://github.com/MindSyncTech/talk-to-cursor). Use this after cloning and building. Full install: [INSTALL.md](INSTALL.md) · [README.md](README.md).
+For the [briankeriri/chat-to-cursor](https://github.com/briankeriri/chat-to-cursor) fork of [TalkToCursor](https://github.com/MindSyncTech/talk-to-cursor). Use this after cloning and building. Full install: [INSTALL.md](INSTALL.md) · [README.md](README.md).
 
 ## 1. Prerequisites
 
@@ -35,7 +35,7 @@ Ensure `~/.cursor/mcp.json` points at this project's `build/index.js` (absolute 
   "mcpServers": {
     "tts": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/chat-to-cursor/build/index.js"]
     }
   }
 }

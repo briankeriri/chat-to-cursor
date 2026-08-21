@@ -1,10 +1,10 @@
-# TalkToCursor - Installation Guide
+# ChatToCursor - Installation Guide
 
-**[This fork](https://github.com/briankeriri/talk-to-cursor)** · Original: [MindSyncTech/talk-to-cursor](https://github.com/MindSyncTech/talk-to-cursor) · [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
+**[This fork](https://github.com/briankeriri/chat-to-cursor)** · Original: [MindSyncTech/talk-to-cursor](https://github.com/MindSyncTech/talk-to-cursor) · [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
 
 A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates aloud and can listen for voice commands using ElevenLabs TTS.
 
-This guide is for the [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor) fork of Mike Sheehan’s TalkToCursor.
+This guide is for the [briankeriri/chat-to-cursor](https://github.com/briankeriri/chat-to-cursor) fork of Mike Sheehan’s TalkToCursor.
 
 ---
 
@@ -45,14 +45,14 @@ Skip to [Step 3: Get your ElevenLabs API Key](#step-3-get-your-elevenlabs-api-ke
 
 **Option A** - From tar.gz:
 ```bash
-tar -xzf talk-to-cursor.tar.gz
-cd talk-to-cursor
+tar -xzf chat-to-cursor.tar.gz
+cd chat-to-cursor
 ```
 
 **Option B** - From GitHub:
 ```bash
-git clone https://github.com/briankeriri/talk-to-cursor.git
-cd talk-to-cursor
+git clone https://github.com/briankeriri/chat-to-cursor.git
+cd chat-to-cursor
 ```
 
 ### Step 2: Install dependencies and build
@@ -69,16 +69,16 @@ Then add to your Cursor MCP config (`~/.cursor/mcp.json`):
   "mcpServers": {
     "tts": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/chat-to-cursor/build/index.js"]
     }
   }
 }
 ```
 
-> **Important:** Replace `/ABSOLUTE/PATH/TO/talk-to-cursor` with the actual path on your machine.
+> **Important:** Replace `/ABSOLUTE/PATH/TO/chat-to-cursor` with the actual path on your machine.
 >
-> - macOS/Linux: `/Users/yourname/talk-to-cursor/build/index.js`
-> - Windows: `C:\\Users\\yourname\\talk-to-cursor\\build\\index.js`
+> - macOS/Linux: `/Users/yourname/chat-to-cursor/build/index.js`
+> - Windows: `C:\\Users\\yourname\\chat-to-cursor\\build\\index.js`
 
 ---
 
@@ -165,7 +165,7 @@ For a fully hands-free experience with voice dictation:
 2. Set up a Python virtual environment:
 
 ```bash
-cd talk-to-cursor
+cd chat-to-cursor
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pynput pyobjc-framework-ApplicationServices
