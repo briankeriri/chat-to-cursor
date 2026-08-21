@@ -42,7 +42,7 @@ Or download and extract the ZIP.
 npm install
 ```
 
-A clean install should report `found 0 vulnerabilities`. Keep `package-lock.json` committed so installs stay reproducible — you should not need `npm audit fix` afterward.
+Keep `package-lock.json` committed so installs stay reproducible.
 
 ### 3. Build the project
 
