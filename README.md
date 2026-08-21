@@ -201,11 +201,6 @@ The script monitors the text field and automatically presses Enter when dictatio
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
-
-Copyright (c) 2026 Mike Sheehan  
-Copyright (c) 2026 Brian Keriri
-
 The original TalkToCursor work remains under Mike Sheehan’s copyright; modifications in this fork add Brian Keriri’s copyright. Both notices must be preserved when you redistribute.
 
 ## Credits
