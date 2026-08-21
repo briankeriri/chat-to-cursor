@@ -1,8 +1,6 @@
 # TalkToCursor
 
-**[talktocursor.com](https://talktocursor.com)**
-
-A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates, completions, and responses aloud using ElevenLabs TTS, enabling fully voice-driven coding workflows.
+A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates, completions, and responses aloud using ElevenLabs TTS. This repo is a standalone continuation of the original [TalkToCursor](https://talktocursor.com) project, with cross-platform Cursor Agent playback fixes.
 
 ## Features
 
@@ -11,14 +9,23 @@ A hands-free voice interface for Cursor AI. Your coding assistant speaks progres
 - **Auto-Submit** - Optional: automatically press Enter when dictation finishes (hands-free)
 - **Voice Presets** - Quick settings for fast, slow, expressive, stable, and dramatic speech
 - **Configurable** - Speed, stability, similarity boost, and style exaggeration controls
+- **Cross-platform playback** - Works with Cursor Desktop and Cursor Agent on Linux (Wayland/X11, including KDE and GNOME), macOS, and Windows
+
+## Prerequisites
+
+- **Node.js** 18+
+- **ffmpeg** with **`ffplay`** (used for audio playback — not `mpv`)
+  - Linux: install via your package manager (e.g. `sudo pacman -S ffmpeg` / `sudo apt install ffmpeg`)
+  - macOS: `brew install ffmpeg`
+  - Windows: install via [winget](https://winget.run/), Chocolatey, Scoop, or a release build that includes `ffplay.exe`
 
 ## Installation
 
 ### 1. Clone or download this repository
 
 ```bash
-git clone https://github.com/MindSyncTech/cursor-tts-mcp.git
-cd cursor-tts-mcp
+git clone https://github.com/briankeriri/talk-to-cursor.git
+cd talk-to-cursor
 ```
 
 Or download and extract the ZIP.
@@ -44,17 +51,17 @@ Edit (or create) `~/.cursor/mcp.json`:
   "mcpServers": {
     "tts": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/cursor-tts-mcp/build/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
     }
   }
 }
 ```
 
-**Important:** Replace `/ABSOLUTE/PATH/TO/cursor-tts-mcp` with the actual full path to where you cloned/downloaded this project.
+**Important:** Replace `/ABSOLUTE/PATH/TO/talk-to-cursor` with the actual full path to where you cloned/downloaded this project.
 
 For example:
-- macOS/Linux: `/Users/yourname/cursor-tts-mcp/build/index.js`
-- Windows: `C:\\Users\\yourname\\cursor-tts-mcp\\build\\index.js`
+- macOS/Linux: `/Users/yourname/talk-to-cursor/build/index.js`
+- Windows: `C:\\Users\\yourname\\talk-to-cursor\\build\\index.js`
 
 ### 5. Get your ElevenLabs API key
 
@@ -80,6 +87,8 @@ Then open http://localhost:3847 in your browser and:
 ### 7. Restart Cursor
 
 **Fully quit Cursor** (Cmd+Q on Mac, or close completely on Windows/Linux) and reopen it.
+
+If you use **Cursor Agent** (CLI), restart that session too so it reloads the MCP server.
 
 ### 8. Test it
 
@@ -146,16 +155,24 @@ The script monitors the text field and automatically presses Enter when dictatio
 - Make sure you fully quit and restarted Cursor (Cmd+Q)
 - Check that `~/.cursor/mcp.json` has the correct absolute path
 - Run `npm run build` to ensure the project is compiled
+- If using Cursor Agent, restart the agent session after changing `mcp.json` or rebuilding
 
 **"API key not set" error?**
 - Open the settings UI: `npm run settings`
 - Enter your ElevenLabs API key and click "Save API Key"
-- Restart Cursor
+- Restart Cursor / Agent
 
-**No audio?**
-- Check system volume and speaker output
-- Verify `mpv` is installed: `mpv --version` (installed automatically by ElevenLabs SDK)
-- Test your API key in the settings UI
+**No audio / tool says "Spoken" but you hear nothing?**
+- Check system volume and the correct output device
+- Confirm `ffplay` is on your PATH: `ffplay -version`
+  - Linux: install `ffmpeg` from your distro
+  - macOS: `brew install ffmpeg`
+  - Windows: install ffmpeg so `ffplay.exe` is available (WinGet, Chocolatey, Scoop, or a manual `bin` folder)
+- Cursor Agent often launches MCP servers with a stripped environment. This project restores what playback needs automatically:
+  - **Linux:** `XDG_RUNTIME_DIR` for PipeWire/Pulse (Wayland and X11; KDE and GNOME included). Do not invent `DISPLAY` / `WAYLAND_DISPLAY` for audio.
+  - **macOS:** common Homebrew paths (`/opt/homebrew/bin`, `/usr/local/bin`)
+  - **Windows:** common WinGet / Scoop / Chocolatey / ffmpeg install paths
+- On Linux, make sure you are in a normal graphical user session (so `/run/user/$UID` exists) and that audio is not routed into a dead sink (e.g. Easy Effects with no output)
 
 **Auto-submit not working?**
 - Ensure macOS Accessibility permissions are granted
@@ -171,8 +188,8 @@ The script monitors the text field and automatically presses Enter when dictatio
 
 ## Links
 
-- **Website:** [talktocursor.com](https://talktocursor.com)
-- **npm:** [npmjs.com/package/talktocursor](https://www.npmjs.com/package/talktocursor)
+- **GitHub:** [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor)
+- **Original project:** [TalkToCursor / talktocursor.com](https://talktocursor.com) ([npm](https://www.npmjs.com/package/talktocursor))
 
 ## License
 

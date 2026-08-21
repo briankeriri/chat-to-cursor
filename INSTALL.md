@@ -1,6 +1,6 @@
 # TalkToCursor - Installation Guide
 
-**[talktocursor.com](https://talktocursor.com)** | **[npm](https://www.npmjs.com/package/talktocursor)** | **[GitHub](https://github.com/MindSyncTech/cursor-tts-mcp)**
+**[GitHub](https://github.com/briankeriri/talk-to-cursor)** · Original: [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
 
 A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates aloud and can listen for voice commands using ElevenLabs TTS.
 
@@ -29,6 +29,14 @@ Skip to [Step 3: Get your ElevenLabs API Key](#step-3-get-your-elevenlabs-api-ke
 
 ---
 
+## Prerequisites
+
+- **Node.js** 18+
+- **ffmpeg** with **`ffplay`** for playback (not `mpv`)
+  - Linux: distro package (e.g. `ffmpeg`)
+  - macOS: `brew install ffmpeg`
+  - Windows: WinGet, Chocolatey, Scoop, or a build that includes `ffplay.exe`
+
 ## Manual Install (from source)
 
 ### Step 1: Download and extract
@@ -36,13 +44,13 @@ Skip to [Step 3: Get your ElevenLabs API Key](#step-3-get-your-elevenlabs-api-ke
 **Option A** - From tar.gz:
 ```bash
 tar -xzf talk-to-cursor.tar.gz
-cd cursor-tts-mcp
+cd talk-to-cursor
 ```
 
 **Option B** - From GitHub:
 ```bash
-git clone https://github.com/MindSyncTech/cursor-tts-mcp.git
-cd cursor-tts-mcp
+git clone https://github.com/briankeriri/talk-to-cursor.git
+cd talk-to-cursor
 ```
 
 ### Step 2: Install dependencies and build
@@ -59,16 +67,16 @@ Then add to your Cursor MCP config (`~/.cursor/mcp.json`):
   "mcpServers": {
     "tts": {
       "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/cursor-tts-mcp/build/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
     }
   }
 }
 ```
 
-> **Important:** Replace `/ABSOLUTE/PATH/TO/cursor-tts-mcp` with the actual path on your machine.
+> **Important:** Replace `/ABSOLUTE/PATH/TO/talk-to-cursor` with the actual path on your machine.
 >
-> - macOS/Linux: `/Users/yourname/cursor-tts-mcp/build/index.js`
-> - Windows: `C:\\Users\\yourname\\cursor-tts-mcp\\build\\index.js`
+> - macOS/Linux: `/Users/yourname/talk-to-cursor/build/index.js`
+> - Windows: `C:\\Users\\yourname\\talk-to-cursor\\build\\index.js`
 
 ---
 
@@ -109,7 +117,9 @@ Open **http://localhost:3847** in your browser, then:
 
 ## Step 5: Restart Cursor
 
-**Fully quit Cursor** (Cmd+Q on Mac) and reopen it. The MCP server needs a fresh restart to load.
+**Fully quit Cursor** (Cmd+Q on Mac, or close completely on Windows/Linux) and reopen it. The MCP server needs a fresh restart to load.
+
+If you use **Cursor Agent** (CLI), restart that session as well after changing `mcp.json` or rebuilding.
 
 ## Step 6: Test it
 
@@ -153,7 +163,7 @@ For a fully hands-free experience with voice dictation:
 2. Set up a Python virtual environment:
 
 ```bash
-cd cursor-tts-mcp
+cd talk-to-cursor
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pynput pyobjc-framework-ApplicationServices
@@ -224,9 +234,14 @@ All settings are stored in `config.json` in the project root. You can edit this 
 - Enter your API key and save
 - Restart Cursor
 
-### No audio output
-- Check system volume and speaker output
-- Verify `mpv` is installed: `brew install mpv`
+### No audio output / "Spoken" but silent
+- Check system volume and the correct output device
+- Confirm `ffplay` works: `ffplay -version` (comes with **ffmpeg**, not mpv)
+  - Linux: install `ffmpeg` from your package manager
+  - macOS: `brew install ffmpeg`
+  - Windows: WinGet / Chocolatey / Scoop / manual install that includes `ffplay.exe`
+- Cursor Agent may strip desktop env vars. This project restores playback env automatically for Linux (PipeWire/Pulse via `XDG_RUNTIME_DIR`), macOS (Homebrew PATH), and Windows (common ffmpeg paths). Restart Agent after rebuilding.
+- On Linux, ensure a normal graphical session (`/run/user/$UID` exists) and that audio is not stuck on a virtual sink with no output
 - Test your API key in the settings UI
 
 ### Auto-submit not working

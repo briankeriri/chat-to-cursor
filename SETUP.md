@@ -1,87 +1,64 @@
 # Quick Setup Guide
 
-Your Cursor TTS MCP server is fully built and configured! Follow these steps to get it working:
+Use this after cloning and building. For full install options (npm global, Wispr loop, auto-submit), see [INSTALL.md](INSTALL.md) and [README.md](README.md).
 
-## Step 1: Get Your ElevenLabs API Key
+## 1. Prerequisites
+
+- Node.js 18+
+- **ffmpeg** with **`ffplay`** on your PATH (`ffplay -version`)
+  - Linux: install `ffmpeg` from your package manager
+  - macOS: `brew install ffmpeg`
+  - Windows: WinGet / Chocolatey / Scoop / manual `ffplay.exe`
+
+## 2. Get your ElevenLabs API key
 
 1. Go to https://try.elevenlabs.io/talktocursor
 2. Sign up or log in (free tier available)
-3. Create a new API key and copy it
+3. Create an API key and copy it
 
-## Step 2: Add Environment Variables
+## 3. Configure via settings UI (recommended)
 
-Open your shell profile file:
 ```bash
-# For zsh (default on macOS)
-nano ~/.zshrc
-
-# OR for bash
-nano ~/.bashrc
+npm run settings
 ```
 
-Add these lines at the end:
-```bash
-export ELEVENLABS_API_KEY="sk_your_actual_api_key_here"
-export ELEVENLABS_VOICE_ID="21m00Tcm4TlvDq8ikWAM"  # Rachel voice (optional)
+Open http://localhost:3847, paste the API key, test, and save. Optionally pick a voice and presets.
+
+Alternatively, put `ELEVENLABS_API_KEY` in the `env` block of your `~/.cursor/mcp.json` entry (see [INSTALL.md](INSTALL.md)).
+
+## 4. Register the MCP server
+
+Ensure `~/.cursor/mcp.json` points at this project's `build/index.js` (absolute path). Example:
+
+```json
+{
+  "mcpServers": {
+    "tts": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/talk-to-cursor/build/index.js"]
+    }
+  }
+}
 ```
 
-Save and reload:
-```bash
-source ~/.zshrc  # or ~/.bashrc
-```
+## 5. Restart Cursor / Agent
 
-Verify it's set:
-```bash
-echo $ELEVENLABS_API_KEY
-```
+Fully quit and reopen Cursor. If you use **Cursor Agent** (CLI), restart that session so MCP reloads.
 
-## Step 3: Restart Cursor
+## 6. Test
 
-**Important**: Completely quit and restart Cursor for it to load the MCP server.
+1. Open a chat and confirm the `speak` tool is available
+2. Ask: **"Say hello using the speak tool"**
+3. You should hear audio on your default output device
 
-1. Press `Cmd+Q` to quit Cursor
-2. Reopen Cursor from Applications or Spotlight
+## Troubleshooting (audio)
 
-## Step 4: Test It!
+- Tool reports success but no sound → confirm `ffplay -version`, output device, and volume
+- Cursor Agent stripped env → this server restores Linux `XDG_RUNTIME_DIR` (PipeWire/Pulse; Wayland and X11) and common ffmpeg PATH entries on macOS/Windows. Rebuild (`npm run build`) and restart Agent after updates
+- Linux: stay in a normal graphical user session; avoid routing into a virtual sink with no output (e.g. misconfigured Easy Effects)
 
-1. Open a new Cursor chat (Cmd+L)
-2. Check "Available Tools" - you should see a "speak" tool
-3. Type: **"Say hello using the speak tool"**
-4. Listen for the voice through your speakers! 🔊
+## Next steps
 
-## Step 5: Try Voice-to-Voice Coding
-
-1. Open Wispr Flow (for speech-to-text input)
-2. Speak a coding request: "Refactor the login function"
-3. The agent will narrate what it's doing as it works
-4. Follow along hands-free!
-
-## What's Been Configured
-
-✅ **MCP Server**: `~/cursor-tts-mcp/` (built and ready)
-✅ **Cursor Config**: `~/.cursor/mcp.json` (server registered)
-✅ **Voice Rule**: `~/.cursor/rules/voice-feedback.mdc` (agent knows to speak)
-✅ **mpv**: Installed via Homebrew (audio playback)
-
-## Troubleshooting
-
-**Tool doesn't appear?**
-- Make sure you fully quit and restarted Cursor (Cmd+Q)
-- Check the MCP config exists: `cat ~/.cursor/mcp.json`
-
-**"API key not set" error?**
-- Verify: `echo $ELEVENLABS_API_KEY` shows your key
-- Restart Cursor after setting the env var
-
-**No audio?**
-- Check system volume
-- Test mpv: `mpv --version`
-- Check speaker output in System Settings
-
-## Next Steps
-
-- Browse more voices at: https://try.elevenlabs.io/talktocursor
-- Check your usage at: https://try.elevenlabs.io/talktocursor
-- Read the full README: `~/cursor-tts-mcp/README.md`
-
-Enjoy coding by voice! 🎤✨
+- Voice rule: `~/.cursor/rules/voice-feedback.mdc` (see INSTALL.md)
+- Hands-free dictation (macOS): Auto-Submit + optional Wispr Flow (see INSTALL.md)
+- Voices and usage: https://try.elevenlabs.io/talktocursor

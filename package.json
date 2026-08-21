@@ -30,9 +30,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MindSyncTech/cursor-tts-mcp"
+    "url": "https://github.com/briankeriri/talk-to-cursor"
   },
-  "homepage": "https://talktocursor.com",
+  "homepage": "https://github.com/briankeriri/talk-to-cursor",
   "files": [
     "build/",
     "public/",
