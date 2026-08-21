@@ -27,6 +27,9 @@
     "ai-assistant"
   ],
   "author": "Mike Sheehan",
+  "contributors": [
+    "Brian Keriri <bkeriri@gmail.com>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

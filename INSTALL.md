@@ -1,8 +1,10 @@
 # TalkToCursor - Installation Guide
 
-**[GitHub](https://github.com/briankeriri/talk-to-cursor)** · Original: [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
+**[This fork](https://github.com/briankeriri/talk-to-cursor)** · Original: [MindSyncTech/talk-to-cursor](https://github.com/MindSyncTech/talk-to-cursor) · [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
 
 A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates aloud and can listen for voice commands using ElevenLabs TTS.
+
+This guide is for the [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor) fork of Mike Sheehan’s TalkToCursor.
 
 ---
 
@@ -263,4 +265,7 @@ All settings are stored in `config.json` in the project root. You can edit this 
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
+
+Copyright (c) 2026 Mike Sheehan  
+Copyright (c) 2026 Brian Keriri

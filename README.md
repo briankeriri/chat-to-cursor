@@ -1,6 +1,12 @@
 # TalkToCursor
 
-A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates, completions, and responses aloud using ElevenLabs TTS. This repo is a standalone continuation of the original [TalkToCursor](https://talktocursor.com) project, with cross-platform Cursor Agent playback fixes.
+A hands-free voice interface for Cursor AI. Your coding assistant speaks progress updates, completions, and responses aloud using ElevenLabs TTS, with cross-platform Cursor Agent playback fixes.
+
+## Fork notice
+
+This repository is a **fork** of the original [TalkToCursor](https://github.com/MindSyncTech/talk-to-cursor) project by [Mike Sheehan](https://github.com/MindSyncTech) ([talktocursor.com](https://talktocursor.com), [npm](https://www.npmjs.com/package/talktocursor)).
+
+It is maintained independently under [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor). Upstream remains available as the `upstream` git remote for reference.
 
 ## Features
 
@@ -188,14 +194,20 @@ The script monitors the text field and automatically presses Enter when dictatio
 
 ## Links
 
-- **GitHub:** [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor)
-- **Original project:** [TalkToCursor / talktocursor.com](https://talktocursor.com) ([npm](https://www.npmjs.com/package/talktocursor))
+- **This fork:** [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor)
+- **Original project:** [MindSyncTech/talk-to-cursor](https://github.com/MindSyncTech/talk-to-cursor) · [talktocursor.com](https://talktocursor.com) · [npm](https://www.npmjs.com/package/talktocursor)
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE).
+
+Copyright (c) 2026 Mike Sheehan  
+Copyright (c) 2026 Brian Keriri
+
+The original TalkToCursor work remains under Mike Sheehan’s copyright; modifications in this fork add Brian Keriri’s copyright. Both notices must be preserved when you redistribute.
 
 ## Credits
 
+- [Mike Sheehan](https://github.com/MindSyncTech) / [TalkToCursor](https://talktocursor.com) — original project
 - [ElevenLabs](https://try.elevenlabs.io/talktocursor) for TTS API
 - [Model Context Protocol](https://modelcontextprotocol.io) for MCP SDK

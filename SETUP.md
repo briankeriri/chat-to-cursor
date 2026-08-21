@@ -1,6 +1,6 @@
 # Quick Setup Guide
 
-Use this after cloning and building. For full install options (npm global, Wispr loop, auto-submit), see [INSTALL.md](INSTALL.md) and [README.md](README.md).
+For the [briankeriri/talk-to-cursor](https://github.com/briankeriri/talk-to-cursor) fork of [TalkToCursor](https://github.com/MindSyncTech/talk-to-cursor). Use this after cloning and building. Full install: [INSTALL.md](INSTALL.md) · [README.md](README.md).
 
 ## 1. Prerequisites
 
